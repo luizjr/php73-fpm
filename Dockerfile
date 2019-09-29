@@ -15,10 +15,10 @@ RUN apt-get update \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 # Condig PHP
-RUN echo 'upload_max_filesize = 300M' >> /etc/php5/fpm/conf.d/99-overrides.ini \
-    && echo 'post_max_size = 308M' >> /etc/php5/fpm/conf.d/99-overrides.ini \
-    && echo 'memory_limit = -1' >> /etc/php5/fpm/conf.d/99-overrides.ini \
-    && echo 'max_input_vars = 3000' >> /etc/php5/fpm/conf.d/99-overrides.ini
+RUN echo 'upload_max_filesize = 300M' >> /etc/php/7.3/fpm/conf.d/99-overrides.ini \
+    && echo 'post_max_size = 308M' >> /etc/php/7.3/fpm/conf.d/99-overrides.ini \
+    && echo 'memory_limit = -1' >> /etc/php/7.3/fpm/conf.d/99-overrides.ini \
+    && echo 'max_input_vars = 3000' >> /etc/php/7.3/fpm/conf.d/99-overrides.ini
 
 # Change uid and gid of apache to docker user uid/gid
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
