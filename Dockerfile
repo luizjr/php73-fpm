@@ -20,5 +20,12 @@ RUN echo 'upload_max_filesize = 300M' >> /etc/php/7.3/fpm/conf.d/99-overrides.in
     && echo 'memory_limit = -1' >> /etc/php/7.3/fpm/conf.d/99-overrides.ini \
     && echo 'max_input_vars = 3000' >> /etc/php/7.3/fpm/conf.d/99-overrides.ini
 
+RUN cd /tmp \
+	&& curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
+    && tar -xvvzf ioncube.tar.gz \
+    && mv ioncube/ioncube_loader_lin_7.3.so /usr/local/lib/php/extensions/* \
+    && rm -Rf ioncube.tar.gz ioncube \
+    && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.3.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.0.ini
+
 # Change uid and gid of apache to docker user uid/gid
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
